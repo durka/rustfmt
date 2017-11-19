@@ -499,7 +499,7 @@ pub fn format_input<T: Write>(
     let codemap = Rc::new(CodeMap::new(FilePathMapping::empty()));
 
     let tty_handler =
-        Handler::with_tty_emitter(ColorConfig::Auto, true, false, Some(codemap.clone()));
+        Handler::with_tty_emitter(ColorConfig::Auto, true, false, false, Some(codemap.clone()));
     let mut parse_session = ParseSess::with_span_handler(tty_handler, codemap.clone());
 
     let main_file = match input {
@@ -528,7 +528,7 @@ pub fn format_input<T: Write>(
         Some(codemap.clone()),
         false,
     ));
-    parse_session.span_diagnostic = Handler::with_emitter(true, false, silent_emitter);
+    parse_session.span_diagnostic = Handler::with_emitter(true, false, false, silent_emitter);
 
     let mut report = FormatReport::new();
 
